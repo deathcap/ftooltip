@@ -9,7 +9,7 @@ module.exports = function(node, opts) {
 function Tooltip(node, opts) {
   this.node = node;
 
-  if (typeof opts === 'string' || Array.isArray(opts)) {
+  if (typeof opts === 'string' || Array.isArray(opts) || opts instanceof Element || opts instanceof DocumentFragment || opts instanceof Text) {
     // shortcut
     opts = {info: opts};
   }
