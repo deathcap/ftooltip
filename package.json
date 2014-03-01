@@ -7,11 +7,12 @@
     "url": "git@github.com:deathcap/dtooltip.git"
   },
   "keywords": [
-    "voxel"
+    "tooltip"
   ],
   "dependencies": {
   },
-  "peerDependencies": {
+  "scripts": {
+    "start": "beefy demo.js"
   },
   "license": "MIT"
 }
