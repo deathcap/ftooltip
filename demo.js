@@ -2,7 +2,10 @@
 
 var dtooltip = require('./');
 
-var node = document.createElement('p');
+var node = document.createElement('div');
+node.style.border = '1px dotted black';
+node.style.width = '100px';
+node.style.height = '100px';
 node.textContent = 'hello world';
 document.body.appendChild(node);
 
