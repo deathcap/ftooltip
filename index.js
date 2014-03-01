@@ -27,9 +27,11 @@ Tooltip.prototype.disable = function() {
   this.node.removeListener('mouseout', this.onMouseout);
 };
 
-Tooltip.prototype.show = function() {
+Tooltip.prototype.show = function(ev) {
   this.div = document.createElement('div');
   this.div.setAttribute('style', this.style);
+  this.div.style.left = ev.x + 'px';
+  this.div.style.top = ev.y + 'px';
   this.div.appendChild(document.createTextNode(this.text));
 
   document.body.appendChild(this.div);
