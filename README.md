@@ -1,4 +1,6 @@
-# dtooltip
+# ftooltip
+
+Simple floating tooltips
 
 ## License
 

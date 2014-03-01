@@ -1,10 +1,10 @@
 {
-  "name": "dtooltip",
+  "name": "ftooltip",
   "description": "",
   "version": "0.0.1",
   "repository": {
     "type": "git",
-    "url": "git@github.com:deathcap/dtooltip.git"
+    "url": "git@github.com:deathcap/ftooltip.git"
   },
   "keywords": [
     "tooltip"
