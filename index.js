@@ -38,6 +38,22 @@ Tooltip.prototype.disable = function() {
   this.node.removeEventListener('mouseout', this.onMouseout);
 };
 
+Tooltip.prototype.create = function() {
+  this.div = document.createElement('div');
+  for (var i = 0; i < this.info.length; i += 1) {
+    var line = this.info[i];
+    if (typeof line === 'string') {
+      this.div.appendChild(document.createTextNode(line));
+    } else if (line instanceof Element || line instanceof DocumentFragment) {
+      this.div.appendChild(line);
+    } else {
+      this.div.appendChild(document.createTextNode(''+line));
+    }
+  }
+  document.body.appendChild(this.div);
+  this.divHeight = this.div.clientHeight;
+}
+
 Tooltip.prototype.show = function(ev) {
   this.move(ev.x, ev.y);
   this.node.addEventListener('mousemove', this.onMousemove = this.track.bind(this));
@@ -49,19 +65,7 @@ Tooltip.prototype.track = function(ev) {
 
 Tooltip.prototype.move = function(x, y) {
   if (!this.div) {
-    this.div = document.createElement('div');
-    for (var i = 0; i < this.info.length; i += 1) {
-      var line = this.info[i];
-      if (typeof line === 'string') {
-        this.div.appendChild(document.createTextNode(line));
-      } else if (line instanceof Element || line instanceof DocumentFragment) {
-        this.div.appendChild(line);
-      } else {
-        this.div.appendChild(document.createTextNode(''+line));
-      }
-    }
-    document.body.appendChild(this.div);
-    this.divHeight = this.div.clientHeight;
+    this.create();
   }
 
   this.div.setAttribute('style', this.style);
