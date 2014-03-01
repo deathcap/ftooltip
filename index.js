@@ -28,17 +28,24 @@ Tooltip.prototype.disable = function() {
 };
 
 Tooltip.prototype.show = function(ev) {
-  this.div = document.createElement('div');
-  this.div.setAttribute('style', this.style);
-  this.div.style.left = ev.x + 'px';
-  this.div.style.top = ev.y + 'px';
-  this.div.appendChild(document.createTextNode(this.text));
+  this.move(ev.x, ev.y);
+};
 
-  document.body.appendChild(this.div);
+Tooltip.prototype.move = function(x, y) {
+  if (!this.div) {
+    this.div = document.createElement('div');
+    this.div.appendChild(document.createTextNode(this.text));
+    document.body.appendChild(this.div);
+  }
+
+  this.div.setAttribute('style', this.style);
+  this.div.style.left = x + 'px';
+  this.div.style.top = y + 'px';
 };
 
 Tooltip.prototype.hide = function() {
   if (this.div) {
     this.div.parentNode.removeChild(this.div);
+    delete this.div;
   }
 };
