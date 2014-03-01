@@ -74,9 +74,12 @@ Tooltip.prototype.create = function() {
   } else {
     this.divHeight = this.div.clientHeight;
   }
+
+  this.div.style.display = 'none';
 }
 
 Tooltip.prototype.show = function(ev) {
+  this.div.style.display = 'block';
   this.div.style.visibility = '';
   this.move(ev.x, ev.y);
   this.node.addEventListener('mousemove', this.onMousemove = this.track.bind(this));
@@ -92,6 +95,7 @@ Tooltip.prototype.move = function(x, y) {
 };
 
 Tooltip.prototype.hide = function() {
+  this.div.style.display = 'none';
   this.div.style.visibility = 'hidden';
   this.node.removeEventListener('mousemove', this.onMousemove);
 };
