@@ -7,6 +7,12 @@ module.exports = function(node, opts) {
 function Tooltip(node, opts) {
   this.node = node;
   this.text = opts.text || 'tooltip';
+  this.style = opts.style || [
+    'position: absolute;',
+    'border: 1px solid black;',
+    'background-color: black;',
+    'color: white;'
+    ].join('\n');
 
   this.enable();
 }
@@ -23,6 +29,7 @@ Tooltip.prototype.disable = function() {
 
 Tooltip.prototype.show = function() {
   this.div = document.createElement('div');
+  this.div.setAttribute('style', this.style);
   this.div.appendChild(document.createTextNode(this.text));
 
   document.body.appendChild(this.div);
