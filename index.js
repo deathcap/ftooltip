@@ -61,11 +61,12 @@ Tooltip.prototype.move = function(x, y) {
       }
     }
     document.body.appendChild(this.div);
+    this.divHeight = this.div.clientHeight;
   }
 
   this.div.setAttribute('style', this.style);
   this.div.style.left = x + 'px';
-  this.div.style.top = (y - this.div.clientHeight) + 'px';
+  this.div.style.top = (y - this.divHeight) + 'px';
 };
 
 Tooltip.prototype.hide = function() {
