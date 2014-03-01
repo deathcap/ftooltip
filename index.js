@@ -25,6 +25,8 @@ function Tooltip(node, opts) {
     opts.extraStyle || '',
     ].join('\n');
 
+  this.cachedDivHeights = [];
+
   this.enable();
 }
 
@@ -40,10 +42,13 @@ Tooltip.prototype.disable = function() {
 
 Tooltip.prototype.create = function() {
   this.div = document.createElement('div');
+  
+  var stringLines = 0;
   for (var i = 0; i < this.info.length; i += 1) {
     var line = this.info[i];
     if (typeof line === 'string') {
       this.div.appendChild(document.createTextNode(line));
+      stringLines += 1;
     } else if (line instanceof Element || line instanceof DocumentFragment) {
       this.div.appendChild(line);
     } else {
@@ -51,7 +56,15 @@ Tooltip.prototype.create = function() {
     }
   }
   document.body.appendChild(this.div);
-  this.divHeight = this.div.clientHeight;
+
+  // cache clientHeight calculation because it is very slow
+  if (stringLines === this.info.length) {
+    // and cache string-only tooltip heights for even better performance (should be all the same)
+    this.divHeight = this.cachedDivHeights[stringLines] || this.div.clientHeight;
+    this.cachedDivHeights[stringLines] = this.divHeight;
+  } else {
+    this.divHeight = this.div.clientHeight;
+  }
 }
 
 Tooltip.prototype.show = function(ev) {
