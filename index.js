@@ -1,12 +1,14 @@
 'use strict';
 
+var toarray = require('toarray');
+
 module.exports = function(node, opts) {
   return new Tooltip(node, opts);
 };
 
 function Tooltip(node, opts) {
   this.node = node;
-  this.text = opts.text || 'tooltip';
+  this.info = toarray(opts.info) || [];
   this.style = opts.style || [
     'position: absolute;',
     'border: 1px solid black;',
@@ -40,7 +42,16 @@ Tooltip.prototype.track = function(ev) {
 Tooltip.prototype.move = function(x, y) {
   if (!this.div) {
     this.div = document.createElement('div');
-    this.div.appendChild(document.createTextNode(this.text));
+    for (var i = 0; i < this.info.length; i += 1) {
+      var line = this.info[i];
+      if (typeof line === 'string') {
+        this.div.appendChild(document.createTextNode(line));
+      } else if (line instanceof Element || line instanceof DocumentFragment) {
+        this.div.appendChild(line);
+      } else {
+        this.div.appendChild(document.createTextNode(''+line));
+      }
+    }
     document.body.appendChild(this.div);
   }
 

@@ -10,6 +10,7 @@
     "tooltip"
   ],
   "dependencies": {
+    "toarray": "0.0.1"
   },
   "scripts": {
     "start": "beefy demo.js"
