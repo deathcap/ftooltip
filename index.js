@@ -22,6 +22,7 @@ function Tooltip(node, opts) {
     'pointer-events: none;',
     'color: white;',
     'z-index: 20;',
+    'visibility: hidden;',
     opts.extraStyle || '',
     ].join('\n');
 
@@ -31,6 +32,7 @@ function Tooltip(node, opts) {
 }
 
 Tooltip.prototype.enable = function() {
+  this.create();
   this.node.addEventListener('mouseenter', this.onMouseenter = this.show.bind(this));
   this.node.addEventListener('mouseleave', this.onMouseleave = this.hide.bind(this));
 };
@@ -38,10 +40,16 @@ Tooltip.prototype.enable = function() {
 Tooltip.prototype.disable = function() {
   this.node.removeEventListener('mouseenter', this.onMouseenter);
   this.node.removeEventListener('mouseleave', this.onMouseleave);
+
+  if (this.div) {
+    this.div.parentNode.removeChild(this.div);
+    delete this.div;
+  }
 };
 
 Tooltip.prototype.create = function() {
   this.div = document.createElement('div');
+  this.div.setAttribute('style', this.style);
   
   var stringLines = 0;
   for (var i = 0; i < this.info.length; i += 1) {
@@ -68,6 +76,7 @@ Tooltip.prototype.create = function() {
 }
 
 Tooltip.prototype.show = function(ev) {
+  this.div.style.visibility = '';
   this.move(ev.x, ev.y);
   this.node.addEventListener('mousemove', this.onMousemove = this.track.bind(this));
 };
@@ -77,19 +86,11 @@ Tooltip.prototype.track = function(ev) {
 }
 
 Tooltip.prototype.move = function(x, y) {
-  if (!this.div) {
-    this.create();
-  }
-
-  this.div.setAttribute('style', this.style);
   this.div.style.left = x + 'px';
   this.div.style.top = (y - this.divHeight) + 'px';
 };
 
 Tooltip.prototype.hide = function() {
+  this.div.style.visibility = 'hidden';
   this.node.removeEventListener('mousemove', this.onMousemove);
-  if (this.div) {
-    this.div.parentNode.removeChild(this.div);
-    delete this.div;
-  }
 };
