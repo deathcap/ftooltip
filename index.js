@@ -69,8 +69,9 @@ Tooltip.prototype.create = function() {
   // cache clientHeight calculation because it is very slow
   if (stringLines === this.info.length) {
     // and cache string-only tooltip heights for even better performance (should be all the same)
-    this.divHeight = this.cachedDivHeights[stringLines] || this.div.clientHeight;
-    this.cachedDivHeights[stringLines] = this.divHeight;
+    if (!global.ftooltip_cachedDivHeights) global.ftooltip_cachedDivHeights = [];
+    this.divHeight = global.ftooltip_cachedDivHeights[stringLines] || this.div.clientHeight;
+    global.ftooltip_cachedDivHeights[stringLines] = this.divHeight;
   } else {
     this.divHeight = this.div.clientHeight;
   }
