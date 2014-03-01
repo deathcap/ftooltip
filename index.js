@@ -23,13 +23,18 @@ Tooltip.prototype.enable = function() {
 };
 
 Tooltip.prototype.disable = function() {
-  this.node.removeListener('mouseover', this.onMouseover);
-  this.node.removeListener('mouseout', this.onMouseout);
+  this.node.removeEventListener('mouseover', this.onMouseover);
+  this.node.removeEventListener('mouseout', this.onMouseout);
 };
 
 Tooltip.prototype.show = function(ev) {
   this.move(ev.x, ev.y);
+  this.node.addEventListener('mousemove', this.onMousemove = this.track.bind(this));
 };
+
+Tooltip.prototype.track = function(ev) {
+  this.move(ev.x, ev.y);
+}
 
 Tooltip.prototype.move = function(x, y) {
   if (!this.div) {
@@ -44,6 +49,7 @@ Tooltip.prototype.move = function(x, y) {
 };
 
 Tooltip.prototype.hide = function() {
+  this.node.removeEventListener('mousemove', this.onMousemove);
   if (this.div) {
     this.div.parentNode.removeChild(this.div);
     delete this.div;
