@@ -11,6 +11,7 @@ function Tooltip(node, opts) {
     'position: absolute;',
     'border: 1px solid black;',
     'background-color: black;',
+    'pointer-events: none;',
     'color: white;'
     ].join('\n');
 
