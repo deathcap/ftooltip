@@ -31,13 +31,13 @@ function Tooltip(node, opts) {
 }
 
 Tooltip.prototype.enable = function() {
-  this.node.addEventListener('mouseover', this.onMouseover = this.show.bind(this));
-  this.node.addEventListener('mouseout', this.onMouseout = this.hide.bind(this));
+  this.node.addEventListener('mouseenter', this.onMouseenter = this.show.bind(this));
+  this.node.addEventListener('mouseleave', this.onMouseleave = this.hide.bind(this));
 };
 
 Tooltip.prototype.disable = function() {
-  this.node.removeEventListener('mouseover', this.onMouseover);
-  this.node.removeEventListener('mouseout', this.onMouseout);
+  this.node.removeEventListener('mouseenter', this.onMouseenter);
+  this.node.removeEventListener('mouseleave', this.onMouseleave);
 };
 
 Tooltip.prototype.create = function() {
