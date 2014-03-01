@@ -20,7 +20,9 @@ function Tooltip(node, opts) {
     'border: 1px solid black;',
     'background-color: black;',
     'pointer-events: none;',
-    'color: white;'
+    'color: white;',
+    'z-index: 20;',
+    opts.extraStyle || '',
     ].join('\n');
 
   this.enable();
