@@ -57,7 +57,7 @@ Tooltip.prototype.create = function() {
     if (typeof line === 'string') {
       this.div.appendChild(document.createTextNode(line));
       stringLines += 1;
-    } else if (line instanceof Element || line instanceof DocumentFragment) {
+    } else if (line instanceof Element || line instanceof DocumentFragment || line instanceof Text) {
       this.div.appendChild(line);
     } else {
       this.div.appendChild(document.createTextNode(''+line));
