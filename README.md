@@ -6,7 +6,7 @@ Usage:
 
     var ftooltip = require('ftooltip');
 
-    ftooltip(dom_node, {info: 'hello world'});
+    ftooltip(dom_node, 'hello world');
 
 Shown on mouse over:
 

@@ -8,6 +8,12 @@ module.exports = function(node, opts) {
 
 function Tooltip(node, opts) {
   this.node = node;
+
+  if (typeof opts === 'string' || Array.isArray(opts)) {
+    // shortcut
+    opts = {info: opts};
+  }
+
   this.info = toarray(opts.info) || [];
   this.style = opts.style || [
     'position: absolute;',
