@@ -57,7 +57,7 @@ Tooltip.prototype.move = function(x, y) {
 
   this.div.setAttribute('style', this.style);
   this.div.style.left = x + 'px';
-  this.div.style.top = y + 'px';
+  this.div.style.top = (y - this.div.clientHeight) + 'px';
 };
 
 Tooltip.prototype.hide = function() {
